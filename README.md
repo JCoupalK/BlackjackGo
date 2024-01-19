@@ -15,6 +15,15 @@ Welcome to BlackjackGo! This project is a simple yet exciting implementation of 
 - Soft hand score detection and display.
 - Dealer play logic according to standard Blackjack rules.
 
+## Table of Contents
+
+- [Features](#features)
+- [Installation](#installation)
+- [Gameplay](#gameplay)
+- [Build](#build)
+- [Contributing](#contributing)
+- [License](#license)
+
 ## Installation
 
 1. Download the binary with wget:
@@ -45,6 +54,8 @@ You'll be presented with the game interface in your terminal. Follow the on-scre
 - Press 'Q' at any time to quit.
 
 The game follows standard Blackjack rules. Your goal is to beat the dealer's hand without going over 21.
+
+![image](https://github.com/JCoupalK/BlackjackGo/assets/108779415/134b90d7-4e3d-41ad-9834-f73d5558a33e)
 
 ## Build
 
