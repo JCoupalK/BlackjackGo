@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"os/exec"
 	"time"
 
 	tea "github.com/charmbracelet/bubbletea"
