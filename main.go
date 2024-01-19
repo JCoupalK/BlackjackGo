@@ -85,24 +85,3 @@ func main() {
 		os.Exit(1)
 	}
 }
-
-func restartGame() {
-	execPath, err := os.Executable()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Failed to get executable path: %v\n", err)
-		return
-	}
-
-	// Start a new instance of the program
-	cmd := exec.Command(execPath)
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	err = cmd.Start()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Failed to start a new instance: %v\n", err)
-		return
-	}
-
-	// Exit the current instance
-	os.Exit(0)
-}
