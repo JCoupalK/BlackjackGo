@@ -16,11 +16,17 @@ func renderCardSymbol(card Card) string {
 	var suitColor termenv.Color
 
 	switch card.Suit {
-	case "Hearts", "Diamonds":
-		suitSymbol = "♥"               // Use "♦" for Diamonds
+	case "Hearts":
+		suitSymbol = "♥"               
 		suitColor = p.Color("#FF0000") // Red color
-	case "Clubs", "Spades":
-		suitSymbol = "♣"               // Use "♠" for Spades
+	case "Diamonds":
+		suitSymbol = "♦"               
+		suitColor = p.Color("#FF0000") // Red color
+	case "Clubs":
+		suitSymbol = "♣"               
+		suitColor = p.Color("#FFFFFF") // Black color
+	case "Spades":
+		suitSymbol = "♠"               
 		suitColor = p.Color("#FFFFFF") // Black color
 	}
 
