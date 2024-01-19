@@ -33,7 +33,7 @@ Welcome to BlackjackGo! This project is a simple yet exciting implementation of 
 
     ```shell
     ./blackjackgo
-    ```#3E302F
+    ```
 
 You'll be presented with the game interface in your terminal. Follow the on-screen instructions to play.
 
@@ -53,14 +53,14 @@ To build  BlackjackGo, you need to have Go installed on your machine. If you don
 Once Go is installed, clone this repository:
 
 ```shell
-git clone https://github.com/yourusername/go-blackjack.git
-cd go-blackjack
+git clone https://github.com/JCoupalK/blackjackgo
+cd blackjackgo
 go build .
 ```
 
 ## Contributing
 
-Contributions to Go Blackjack are welcome! Feel free to fork the repository and submit pull requests.
+Contributions to BlackjackGo are welcome! Feel free to fork the repository and submit pull requests.
 
 ## License
 
