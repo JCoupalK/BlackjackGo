@@ -23,33 +23,39 @@ func (gs *gameState) DealInitialCards() {
 }
 
 func (gs *gameState) PlayerHit() {
-	// Check if the current score is already 21, prevent hitting
-	if gs.CalculateScore(gs.PlayerHand) == 21 {
-		return
-	}
+    score, _ := gs.CalculateScore(gs.PlayerHand)
+    if score == 21 {
+        return
+    }
 
-	card, deck := dealCard(gs.Deck)
-	gs.Deck = deck
-	gs.PlayerHand = append(gs.PlayerHand, card)
+    card, deck := dealCard(gs.Deck)
+    gs.Deck = deck
+    gs.PlayerHand = append(gs.PlayerHand, card)
 
-	if gs.CalculateScore(gs.PlayerHand) > 21 {
-		gs.GameOver = true
-		gs.PlayerWins = false
-	}
+    score, _ = gs.CalculateScore(gs.PlayerHand)
+    if score > 21 {
+        gs.GameOver = true
+        gs.PlayerWins = false
+    }
 }
+
 
 func (gs *gameState) DealerPlay() {
-	for gs.CalculateScore(gs.DealerHand) < 17 {
-		card, deck := dealCard(gs.Deck)
-		gs.Deck = deck
-		gs.DealerHand = append(gs.DealerHand, card)
-	}
-	gs.DealerRevealing = true
+    for score, _ := gs.CalculateScore(gs.DealerHand); score < 17; {
+        card, deck := dealCard(gs.Deck)
+        gs.Deck = deck
+        gs.DealerHand = append(gs.DealerHand, card)
+        score, _ = gs.CalculateScore(gs.DealerHand)
+    }
+    gs.DealerRevealing = true
 }
 
-func (gs *gameState) CalculateScore(hand []Card) int {
+
+func (gs *gameState) CalculateScore(hand []Card) (int, bool) {
 	score := 0
 	aces := 0
+	soft := false
+
 	for _, card := range hand {
 		switch {
 		case card.Rank == "A":
@@ -69,24 +75,32 @@ func (gs *gameState) CalculateScore(hand []Card) int {
 		score -= 10
 		aces--
 	}
-	return score
+
+	// If there's at least one Ace and score is less than 21, it's a soft hand
+	if aces > 0 && score <= 21 {
+		soft = true
+	}
+
+	return score, soft
 }
+
 
 func (gs *gameState) DetermineWinner() {
-	playerScore := gs.CalculateScore(gs.PlayerHand)
-	dealerScore := gs.CalculateScore(gs.DealerHand)
+    playerScore, _ := gs.CalculateScore(gs.PlayerHand)
+    dealerScore, _ := gs.CalculateScore(gs.DealerHand)
 
-	if playerScore > 21 {
-		gs.GameOver = true
-		gs.PlayerWins = false
-	} else if dealerScore > 21 || playerScore > dealerScore {
-		gs.GameOver = true
-		gs.PlayerWins = true
-	} else if dealerScore > playerScore {
-		gs.GameOver = true
-		gs.PlayerWins = false
-	} else {
-		gs.GameOver = true
-		gs.Tie = true
-	}
+    if playerScore > 21 {
+        gs.GameOver = true
+        gs.PlayerWins = false
+    } else if dealerScore > 21 || playerScore > dealerScore {
+        gs.GameOver = true
+        gs.PlayerWins = true
+    } else if dealerScore > playerScore {
+        gs.GameOver = true
+        gs.PlayerWins = false
+    } else {
+        gs.GameOver = true
+        gs.Tie = true
+    }
 }
+

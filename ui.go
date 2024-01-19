@@ -52,12 +52,20 @@ func renderGameState(gs gameState, width int) string {
 	sb.WriteString("\nYour Hand:\n")
 	sb.WriteString("  " + renderHandSymbol(gs.PlayerHand) + "\n")
 
-	playerScore := gs.CalculateScore(gs.PlayerHand)
-	sb.WriteString(fmt.Sprintf("\nYour Score: %d\n", playerScore))
+	playerScore, isSoftPlayer := gs.CalculateScore(gs.PlayerHand)
+	scoreText := fmt.Sprintf("%d", playerScore)
+	if isSoftPlayer {
+		scoreText = fmt.Sprintf("Soft %s", scoreText)
+	}
+	sb.WriteString(fmt.Sprintf("\nYour Score: %s\n", scoreText))
 
 	if gs.GameOver {
-		dealerScore := gs.CalculateScore(gs.DealerHand)
-		sb.WriteString(fmt.Sprintf("Dealer's Score: %d\n", dealerScore))
+		dealerScore, isSoftDealer := gs.CalculateScore(gs.DealerHand)
+		dealerScoreText := fmt.Sprintf("%d", dealerScore)
+		if isSoftDealer {
+			dealerScoreText = fmt.Sprintf("Soft %s", dealerScoreText)
+		}
+		sb.WriteString(fmt.Sprintf("Dealer's Score: %s\n", dealerScoreText))
 		sb.WriteString("\n" + gameOutcomeMessage(gs) + "\n")
 	} else if playerScore == 21 {
 		sb.WriteString("\n21! Press 'S'.\n")
